@@ -1,0 +1,25 @@
+{
+  "name": "fastboot-memcached-cache",
+  "version": "0.0.0",
+  "description": "A FastBoot App Server cache for Memcached",
+  "engines": {
+    "node": ">= 6"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint ."
+  },
+  "repository": {
+    "url": "https://github.com/ursm/fastboot-memcached-cache.git",
+    "type": "git"
+  },
+  "author": "Keita Urashima <ursm@ursm.jp>",
+  "license": "MIT",
+  "dependencies": {
+    "memjs": "^0.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.9.1",
+    "eslint-plugin-node": "^3.0.3"
+  }
+}
