@@ -2,6 +2,24 @@
 
 This is similar to [tomdale/fastboot-redis-cache](https://github.com/tomdale/fastboot-redis-cache), and its Memcached version.
 
+## Installation
+
+```
+$ npm install --save ursm/fastboot-memcached-cache
+```
+
+Please install either [`memjs`](https://github.com/alevy/memjs) or [`memcached`](https://github.com/3rd-Eden/memcached) according to your preference.
+
+```
+$ npm install --save memjs
+(or)
+$ npm install --save memcached
+```
+
+Tip: Since all Memcached add-ons of Heroku require SASL authentication, you should use `memjs`. Strangely, Memcached in Google App Engine does not work well with `memjs`.
+
+## Usage
+
 ``` js
 const FastBootAppServer = require('fastboot-app-server');
 const MemcachedCache    = require('fastboot-memcached-cache');
@@ -24,7 +42,7 @@ const server = new FastBootAppServer({
 
 ### `servers` (optional)
 
-This library uses [MemJS](https://github.com/alevy/memjs) as the backend, so please refer to that.
+This option is passed directly to `memjs` or `memcached`. See the documentation of those libraries.
 
 Default: `localhost:11211`
 

@@ -1,8 +1,39 @@
-const memjs = require('memjs');
+function requireSafely(module) {
+  try {
+    return require(module);
+  } catch (e) {
+    if (e.code === 'MODULE_NOT_FOUND') {
+      return null;
+    } else {
+      throw e;
+    }
+  }
+}
+
+function getWrapper(...args) {
+  const memjs = requireSafely('memjs');
+
+  if (memjs) {
+    const MemjsWrapper = require('./lib/memjs-wrapper');
+
+    return new MemjsWrapper(memjs, ...args);
+  }
+
+  const Memcached = requireSafely('memcached');
+
+  if (Memcached) {
+    const MemcachedWrapper = require('./lib/memcached-wrapper');
+
+    return new MemcachedWrapper(Memcached, ...args);
+  }
+
+  throw new Error("Please add either memjs or memcached to your application's dependencies.")
+}
 
 class MemcachedCache {
   constructor({servers, expiration, cacheKey} = {}) {
-    this.client = memjs.Client.create(servers, {
+    this.client = getWrapper({
+      servers,
       expires: expiration || 5 * 60
     });
 
